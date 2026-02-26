@@ -1,0 +1,55 @@
+{
+  "name": "openclaw-mobile",
+  "version": "1.0.0",
+  "description": "Termux/Proot optimized fork of OpenClaw - Your personal AI assistant on Android",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "openclaw-mobile": "./termux/start.sh"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "gateway": "node dist/gateway/server.js",
+    "dev": "tsx src/index.ts",
+    "dev:gateway": "tsx src/gateway/server.ts",
+    "test": "echo \"Tests not yet implemented\" && exit 0",
+    "lint": "echo \"Linting not yet configured\" && exit 0",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "openclaw",
+    "ai",
+    "assistant",
+    "termux",
+    "android",
+    "proot",
+    "mobile",
+    "chatbot",
+    "llm"
+  ],
+  "author": "OpenClaw-Mobile Contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sultanchh/openclaw-mobile-.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Sultanchh/openclaw-mobile-/issues"
+  },
+  "homepage": "https://github.com/Sultanchh/openclaw-mobile-#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@sinclair/typebox": "^0.32.0",
+    "puppeteer-core": "^21.0.0",
+    "ws": "^8.14.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/ws": "^8.5.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.3.0"
+  }
+}
