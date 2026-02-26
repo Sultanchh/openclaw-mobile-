@@ -1,0 +1,221 @@
+# ============================================
+# OpenClaw-Mobile Configuration
+# Optimized for Android Termux + Proot Environments
+# ============================================
+
+[metadata]
+name = "OpenClaw-Mobile"
+version = "1.0.0"
+description = "Termux/Proot optimized fork of OpenClaw"
+target = "android-termux"
+
+# ============================================
+# Gateway Configuration
+# ============================================
+
+[gateway]
+# Bind to localhost only for security
+host = "127.0.0.1"
+port = 18789
+
+# Enable verbose logging for debugging
+verbose = true
+
+# WebSocket configuration
+websocket = { path = "/ws", heartbeat = 30000 }
+
+# ============================================
+# Browser Configuration
+# ============================================
+
+[browser]
+# Enable browser automation
+enabled = true
+
+# Run in headless mode (required for Termux)
+headless = true
+
+# Path to system Chromium (Termux/Proot)
+executablePath = "/usr/bin/chromium"
+
+# Chrome flags optimized for Android/Termux
+# These flags disable sandbox, GPU, and zygote for Proot compatibility
+args = [
+  "--no-sandbox",
+  "--disable-setuid-sandbox",
+  "--disable-dev-shm-usage",
+  "--disable-gpu",
+  "--single-process",
+  "--no-zygote",
+  "--disable-background-networking",
+  "--disable-background-timer-throttling",
+  "--disable-backgrounding-occluded-windows",
+  "--disable-breakpad",
+  "--disable-client-side-phishing-detection",
+  "--disable-component-update",
+  "--disable-default-apps",
+  "--disable-features=TranslateUI",
+  "--disable-hang-monitor",
+  "--disable-ipc-flooding-protection",
+  "--disable-popup-blocking",
+  "--disable-prompt-on-repost",
+  "--disable-renderer-backgrounding",
+  "--force-color-profile=srgb",
+  "--metrics-recording-only",
+  "--safebrowsing-disable-auto-update",
+  "--enable-automation",
+  "--password-store=basic",
+  "--use-mock-keychain"
+]
+
+# Desktop User-Agent to bypass mobile-only redirects
+userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+
+# Viewport settings
+viewport = { width = 1280, height = 720 }
+
+# Timeouts (in milliseconds)
+navigationTimeout = 30000
+pageTimeout = 30000
+
+# ============================================
+# Resource Management
+# ============================================
+
+[resources]
+# Maximum memory limit in MB (for 512MB-2GB devices)
+memoryLimitMB = 512
+
+# Concurrency limits
+concurrency = 1
+
+# Maximum concurrent browser sessions
+maxBrowserSessions = 1
+
+# Maximum concurrent web searches
+maxSearchConcurrency = 2
+
+# Cache settings
+cache = { enabled = true, ttlMinutes = 60, maxSizeMB = 50 }
+
+# ============================================
+# Web Search Configuration
+# ============================================
+
+[tools.web.search]
+# Enable web search
+enabled = true
+
+# Use SearXNG + Jina Reader (API-free)
+provider = "searxng"
+
+# Maximum search results
+maxResults = 5
+
+# Search timeout (seconds)
+timeoutSeconds = 30
+
+# Cache TTL (minutes)
+cacheTtlMinutes = 60
+
+# Fetch full content via Jina Reader
+fetchContent = true
+
+# SearXNG instances (decentralized search)
+[[tools.web.search.searxng.instances]]
+url = "https://searx.be"
+priority = 1
+
+[[tools.web.search.searxng.instances]]
+url = "https://searx.dresden.network"
+priority = 2
+
+[[tools.web.search.searxng.instances]]
+url = "https://search.sapti.me"
+priority = 3
+
+# ============================================
+# Agent Configuration
+# ============================================
+
+[agent]
+# Default model (can be overridden per-session)
+model = "openai/gpt-4o-mini"
+
+# Thinking level (off, minimal, low, medium, high, xhigh)
+thinking = "medium"
+
+# Verbose output
+verbose = false
+
+# Session settings
+session = { maxHistory = 50, compactThreshold = 4000 }
+
+# ============================================
+# Security Configuration
+# ============================================
+
+[security]
+# Enable SSRF protection
+ssrfProtection = true
+
+# Allowed private networks (empty = none allowed)
+allowedPrivateNetworks = []
+
+# Content security
+contentSecurity = { wrapExternal = true, maxContentLength = 5000 }
+
+# ============================================
+# Logging Configuration
+# ============================================
+
+[logging]
+# Log level (debug, info, warn, error)
+level = "info"
+
+# Log to file
+file = { enabled = true, path = "~/.openclaw/logs/openclaw-mobile.log", maxSize = "10MB", maxFiles = 3 }
+
+# Log to console
+console = { enabled = true, colors = true }
+
+# ============================================
+# Mobile-Specific Settings
+# ============================================
+
+[mobile]
+# Enable Proot compatibility patches
+prootCompat = true
+
+# Network interface patching (for Error 13)
+networkPatch = true
+
+# Battery-aware mode (reduce activity when low battery)
+batteryAware = true
+
+# Network-aware mode (reduce data usage on mobile networks)
+networkAware = true
+
+# ============================================
+# Channels Configuration
+# ============================================
+
+# WebChat (built-in, always available)
+[channels.webchat]
+enabled = true
+port = 18790
+
+# Terminal/CLI (always available)
+[channels.terminal]
+enabled = true
+
+# ============================================
+# Extension Configuration
+# ============================================
+
+[extensions]
+# Auto-load extensions
+autoLoad = false
+
+# Allowed extensions
+allowed = []
